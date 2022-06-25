@@ -23,13 +23,20 @@ public class FileUtil {
 		try {
 			FileOutputStream fileOutput = new FileOutputStream(arquivo);// escrever no arquivo é fluxo de saída
 			ObjectOutputStream objOutput = new ObjectOutputStream(fileOutput);
-			
+			objOutput.writeObject(obj);// lança objeto para a memória
+
+			objOutput.flush();// manipulação no Stream e ela passe a valer método flush
+			fileOutput.flush();// confirmando no fileOutput a operação
+
+			objOutput.close();// fecha os canais de comunicação
+			fileOutput.close();
+
+			return true;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-
-		return true;
 
 	}
 
