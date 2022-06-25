@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FileUtil {
@@ -42,7 +44,25 @@ public class FileUtil {
 
 	public static Object recuperarObjeto(String caminho) {
 
-		return null;
+		File arquivo = new File(caminho);
+
+		try {
+
+			FileInputStream fileInput = new FileInputStream(arquivo);
+			ObjectInputStream objInput = new ObjectInputStream(fileInput);
+
+			Object retorno = objInput.readObject();
+
+			objInput.close();
+			fileInput.close();
+
+			return retorno;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 }
